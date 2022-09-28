@@ -1,7 +1,7 @@
 <h1> Youtube By Api</h1>
 
 Hello The Youtube clone can be built with the Youtube API.
-Youtube Link:
+Youtube Link: https://smartyoutube.netlify.app/
 The Youtube API is an application program interface which allows developers to integrate YouTube features into their own web pages and applications. Developers can use the API to search for, upload, edit, and share videos on YouTube.
 
 It is possible to build a Youtube clone using the Youtube API.
