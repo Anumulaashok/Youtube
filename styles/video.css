@@ -1,0 +1,114 @@
+#other{
+    width: 80%;
+    height: 600px;
+}
+#other>iframe{
+    width: 100%;
+    height: 90%;
+}
+#box{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-auto-rows: auto;
+        gap: 20px;
+        /* grid: 150px / auto auto auto; */
+
+    }
+    #box>div{
+        width: 280px;
+        height: fit-content;
+        position: relative;
+    }
+    #box>div>img{
+        
+        width: 100%;
+        height: 40%;
+        /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+    }
+    #box>div>img:hover{
+        border-radius: 20px;
+        /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+        width: 110%;
+        height: 50%;
+    }
+    #box>div>h4{
+        padding: 10px;
+    }
+    #box>div>p{
+       visibility: collapse;
+
+    }
+    #box>div>p:hover{
+        visibility: visible;
+        position: absolute;
+        text-align: center;
+        align-items: center;
+       
+    }
+/* #box{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-auto-rows: auto;
+        gap: 20px;
+    }
+    #image{
+        width: 100%;
+        margin:auto;
+    }
+    #main{
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        justify-content: center;
+    }
+    #main>img{
+        width: 300px;
+        height: auto;
+    } */
+    #search{
+        display: flex;
+        width:300px;
+        /* text-align: center; */
+        margin: auto;
+        justify-content: center;
+        padding: 15px;
+        font-size: medium;
+        border-radius: 5px;
+    
+    }
+    #btn{
+        margin: auto;
+        width: 150px;
+        margin-top: 30px;
+        
+
+    }
+    #searchbar{
+        display: flex;
+        margin: auto;
+        width: 50%;
+        margin-bottom: 30px;
+
+    }
+    .imbox>h2{
+        padding: 10px;
+    }
+    #btn{
+        margin: auto;
+        width: 150px;
+        margin-top: 30px;
+        
+    }
+    #secondnav{
+        display: flex;
+        justify-content: space-around;
+
+    }
+    #secondnav>div{
+        margin: 10px 0px;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: rgba(185, 184, 184, 0.306);
+        border: 1px solid rgb(23, 23, 23);
+        /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    }
