@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayVideo</title>
+<style>
+    #other{
+        width: 100%;
+        height: 880px;
+    }
+    #other>iframe{
+        width: 100%;
+        height: 80%;
+    }
+
+    #box{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-auto-rows: auto;
+            gap: 20px;
+        }
+        #image{
+            width: 100%;
+            margin:auto;
+        }
+        #main{
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            justify-content: center;
+        }
+        #main>img{
+            width: 300px;
+            height: auto;
+        }
+        #search{
+            display: flex;
+            width:300px;
+            /* text-align: center; */
+            margin: auto;
+            justify-content: center;
+            padding: 15px;
+            font-size: medium;
+            border-radius: 5px;
+        
+        }
+        #btn{
+            margin: auto;
+            width: 150px;
+            margin-top: 30px;
+            
+
+        }
+        #searchbar{
+            display: flex;
+            margin: auto;
+            width: 50%;
+            margin-bottom: 30px;
+
+        }
+        .imbox{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+
+
+        }
+        .imbox>h2{
+            padding: 10px;
+        }
+</style>
+</head>
+<body>
+    <div id="main"><img src="https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6.jpg" alt="youtube"></div>
+    <input type="text" id="Search" placeholder="Search">
+
+    <button onclick="orderfun()" id="sarch">Search</button>
+    <div id="other"></div>
+    <!-- <iframe class="youtube-player" type="text/html" src="http://www.youtube.com/embed/JW5meKfy3fY?wmode=opaque&autohide=1&autoplay=1&volume=0&vol=0&mute=1" frameborder="0">&lt;br /&gt;</iframe> -->
+    <div id="box"></div>
+
+</body>
+</html>
+<!-- <script src="index.js"></script> -->
+<script>
+display()
+function display(){
+let video=JSON.parse(localStorage.getItem("video"))
+
+let box=document.getElementById("other")
+let iframe=document.createElement("iframe");
+iframe.src=`https://www.youtube.com/embed/${video.videoId}`;
+
+iframe.allow="fullscreen"
+
+let p1=document.createElement("h2")
+p1.innerText=video.title;
+box.append(iframe,p1);
+
+// setTimeout(function(){
+   
+// },1000)
+
+}
+  
+// <-------playing video data appended------->
+  let  videos=JSON.parse(localStorage.getItem("videos"))||[]
+
+
+
+
+let append = (data) =>{
+        videos=JSON.parse(localStorage.getItem("videos"))||[]
+localStorage.setItem("videos",JSON.stringify(data))
+// console.log(videos);
+let box=document.getElementById("box")
+box.innerHTML=""
+data.forEach( ({ id:{ videoId },snippet:{ title,thumbnails},...a }) => {
+    
+
+    let data={
+        videoId,
+        title,
+        a
+    }
+    let div1=document.createElement("div")
+    div1.setAttribute("class","imbox")
+  
+ 
+    let iframe=document.createElement("iframe");
+    iframe.src=`https://www.youtube.com/embed/${videoId}`;
+    let image=document.createElement("img");
+    image.setAttribute("id","image")
+    image.style.cursor="pointer"
+    iframe.allow="fullscreen"
+    image.src=thumbnails.high.url;
+
+    let p1=document.createElement("h2")
+    p1.innerText=title;
+    div1.append(image,p1);
+
+    box.append(div1);
+    div1.addEventListener("click",function(){
+        playvideo(data)
+
+    });
+
+  
+});
+
+}
+append(videos)
+let playvideo=(data)=>{
+
+localStorage.setItem("video",JSON.stringify(data));
+// console.log(window.location)
+window.scroll(0,0);
+window.location.reload();
+
+
+}
+// -------------------------------------
+
+const api2=`AIzaSyCVgQvJASOExBRUlBku-VhMgYUGWAN31ls`
+const api=`AIzaSyBpAOQfg35I1VSGJ9oH6yeXU-O-92j4GMQ`;
+let searchs=document.getElementById("Search");
+searchs.addEventListener("keydown", function (e) {
+    let query=document.getElementById("Search").value;
+    if (e.key === "Enter") {  
+        search(query);
+    }
+  });
+
+let search = async (query)=>{
+    
+    // console.log("hai")
+    try{
+    
+
+let url=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${query}&key=${api}`
+
+let res= await fetch(url);
+
+let data= await res.json();
+
+appends(data.items)
+} catch (err){
+    try{
+    
+
+    let url=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${query}&key=${api}`
+    
+    let res= await fetch(url);
+    
+    let data= await res.json();
+    
+    appends(data.items)
+    } catch (err){
+        console.log(err);
+    } 
+} 
+}
+// let videos=JSON.parse(localStorage.getItem("videos"))||[]
+// search("tranding telugu");
+    let appends = (data) =>{
+    videos=JSON.parse(localStorage.getItem("videos"))||[]
+localStorage.setItem("videos",JSON.stringify(data))
+let box=document.getElementById("box")
+box.innerHTML=""
+data.forEach( ({ id:{ videoId },snippet:{ title,thumbnails},...a }) => {
+    
+
+    let data={
+        videoId,
+        title,
+        a
+    }
+    let div1=document.createElement("div")
+    div1.setAttribute("class","imbox")
+  
+ 
+    let iframe=document.createElement("iframe");
+    iframe.src=`https://www.youtube.com/embed/${videoId}`;
+    let image=document.createElement("img");
+    image.style.cursor="pointer"
+    iframe.allow="fullscreen"
+    image.src=thumbnails.high.url;
+
+    let p1=document.createElement("h2")
+    p1.innerText=title;
+    div1.append(image,p1);
+
+    box.append(div1);
+    div1.addEventListener("click",function(){
+        playvideos(data)
+
+    });
+
+  
+});
+
+}
+
+let playvideos=(data)=>{
+
+localStorage.setItem("video",JSON.stringify(data));
+window.location.href="video.html"
+
+
+}
+let Sea=document.getElementById("sarch");
+Sea.addEventListener("click",()=>{
+    let query=document.getElementById("Search").value;
+    search(query);
+})
+</script>
