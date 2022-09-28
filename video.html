@@ -4,18 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlayVideo</title>
+    <title id="title">YouTube</title>
+    <link rel="icon" href="./componenets/youtube.logo.jpg">
+
 <style>
     #other{
-        width: 100%;
-        height: 880px;
+        width: 80%;
+        height: 600px;
     }
     #other>iframe{
         width: 100%;
-        height: 80%;
+        height: 90%;
     }
-
     #box{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-auto-rows: auto;
+            gap: 20px;
+            /* grid: 150px / auto auto auto; */
+
+        }
+        #box>div{
+            width: 280px;
+            height: fit-content;
+            position: relative;
+        }
+        #box>div>img{
+            
+            width: 100%;
+            height: 40%;
+            /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+        }
+        #box>div>img:hover{
+            border-radius: 20px;
+            /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+            width: 110%;
+            height: 50%;
+        }
+        #box>div>h4{
+            padding: 10px;
+        }
+        #box>div>p{
+           visibility: collapse;
+
+        }
+        #box>div>p:hover{
+            visibility: visible;
+            position: absolute;
+            text-align: center;
+            align-items: center;
+           
+        }
+    /* #box{
             display: grid;
             grid-template-columns: repeat(4,1fr);
             grid-auto-rows: auto;
@@ -34,7 +74,7 @@
         #main>img{
             width: 300px;
             height: auto;
-        }
+        } */
         #search{
             display: flex;
             width:300px;
@@ -60,23 +100,54 @@
             margin-bottom: 30px;
 
         }
-        .imbox{
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-
-
-        }
         .imbox>h2{
             padding: 10px;
+        }
+        #btn{
+            margin: auto;
+            width: 150px;
+            margin-top: 30px;
+            
+        }
+        #secondnav{
+            display: flex;
+            justify-content: space-around;
+
+        }
+        #secondnav>div{
+            margin: 10px 0px;
+            padding: 10px;
+            border-radius: 20px;
+            background-color: rgba(185, 184, 184, 0.306);
+            border: 1px solid rgb(23, 23, 23);
+            /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
         }
 </style>
 </head>
 <body>
-    <div id="main"><img src="https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6.jpg" alt="youtube"></div>
-    <input type="text" id="Search" placeholder="Search">
+    
+    <span> <img style="width: 100px;margin-left: 20px; " onclick="Home()" src="data:image/png;base64,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" alt="YOUTUBE"></span>
+    <input id="Search" type="text" placeholder="Search">
+    <button id="sarch" onclick="orderfun()" id="sarch">Search</button>
 
-    <button onclick="orderfun()" id="sarch">Search</button>
+</div>
+<div id="secondnav">
+    <div id="Treanding">Treanding</div>
+    <div id="songs">songs</div>
+    <div id="news">news</div>
+    <div id="Movies">Movies</div>
+    <div id="Telugu">Telugu Songs</div>
+    <div id="devotinal">devotinal</div>
+    <div id="live">Live</div>
+    <div id="telugu dj">Dj</div>
+    <div id="TeluguFolk">Telugu folks</div>
+</div>
+    <!-- <div id="main"><img src="https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6.jpg" alt="youtube"></div>
+    <input type="text" id="Search" placeholder="Search"> -->
+
+    <!-- <button onclick="orderfun()" id="sarch">Search</button> -->
     <div id="other"></div>
+    
     <!-- <iframe class="youtube-player" type="text/html" src="http://www.youtube.com/embed/JW5meKfy3fY?wmode=opaque&autohide=1&autoplay=1&volume=0&vol=0&mute=1" frameborder="0">&lt;br /&gt;</iframe> -->
     <div id="box"></div>
 
@@ -84,6 +155,7 @@
 </html>
 <!-- <script src="index.js"></script> -->
 <script>
+    let tit= document.getElementById("title");
 display()
 function display(){
 let video=JSON.parse(localStorage.getItem("video"))
@@ -94,8 +166,9 @@ iframe.src=`https://www.youtube.com/embed/${video.videoId}`;
 
 iframe.allow="fullscreen"
 
-let p1=document.createElement("h2")
+let p1=document.createElement("h4")
 p1.innerText=video.title;
+tit.innerText=video.title;
 box.append(iframe,p1);
 
 // setTimeout(function(){
@@ -136,10 +209,10 @@ data.forEach( ({ id:{ videoId },snippet:{ title,thumbnails},...a }) => {
     iframe.allow="fullscreen"
     image.src=thumbnails.high.url;
 
-    let p1=document.createElement("h2")
+    let p1=document.createElement("h4")
     p1.innerText=title;
     div1.append(image,p1);
-
+    
     box.append(div1);
     div1.addEventListener("click",function(){
         playvideo(data)
@@ -227,7 +300,7 @@ data.forEach( ({ id:{ videoId },snippet:{ title,thumbnails},...a }) => {
     iframe.allow="fullscreen"
     image.src=thumbnails.high.url;
 
-    let p1=document.createElement("h2")
+    let p1=document.createElement("h4")
     p1.innerText=title;
     div1.append(image,p1);
 
@@ -254,4 +327,35 @@ Sea.addEventListener("click",()=>{
     let query=document.getElementById("Search").value;
     search(query);
 })
+
+let sea=document.getElementById("secondnav").childNodes;  
+  
+  for(let i=0;i<sea.length;i++){
+      sea[i].addEventListener("click",function(){
+          Check(sea[i]);
+      })
+      // console.log(sea[i])
+  }
+  function Check(xl){
+    defalut(xl.id);
+  }
+  let defalut = async (query)=>{
+    try{
+   
+let url=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${query}&key=${api}`
+
+let res= await fetch(url);
+
+let data= await res.json();
+console.log("iam data->"+data.items)
+append(data.items)
+    }
+    catch(err){
+        console.log(err);
+    }
+
+}
+function Home(){
+    window.location.href="index.html";
+}
 </script>
